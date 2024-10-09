@@ -1,26 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Telegram Mini App</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
-        button { padding: 10px 20px; background-color: #0088cc; color: white; border: none; border-radius: 5px; cursor: pointer; }
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 50px;
+      }
+      button {
+        padding: 10px 20px;
+        background-color: #0088cc;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Welcome to My Telegram Mini App</h1>
     <button id="sendData">Send Data to Telegram</button>
     <script>
-        const tg = window.Telegram.WebApp;
+      const tg = window.Telegram.WebApp;
 
-        document.getElementById('sendData').onclick = function () {
-            tg.sendData("Hello from the mini app!");
-        };
+      document.getElementById("sendData").onclick = function () {
+        tg.sendData("Hello from the mini app!");
+      };
 
-        tg.MainButton.setText("Send Data").show();
+      tg.MainButton.setText("Send Data").show();
     </script>
-</body>
+    <script
+      async
+      src="https://telegram.org/js/telegram-widget.js?22"
+      data-telegram-login="bear2029bot"
+      data-size="large"
+      data-onauth="onTelegramAuth(user)"
+      data-request-access="write"
+    ></script>
+    <script type="text/javascript">
+      function onTelegramAuth(user) {
+        alert(
+          "Logged in as " +
+            user.first_name +
+            " " +
+            user.last_name +
+            " (" +
+            user.id +
+            (user.username ? ", @" + user.username : "") +
+            ")"
+        );
+      }
+    </script>
+  </body>
 </html>
