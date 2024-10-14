@@ -24,7 +24,38 @@
   <body>
     <h1>Welcome to My Telegram Mini App</h1>
     <button id="sendData">Send Data to Telegram</button>
+    <div>
+      <p id="count"></p>
+      <p id="update"></p>
+      <button id="counter-button">Press to add counter</button>
+    </div>
     <script>
+      function getCounter() {
+        fetch("/counter")
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(
+                "Network response was not ok: " + response.statusText
+              );
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log("Counter Data:", data);
+            document.getElementById("count").textContent = data.count;
+            document.getElementById("update").textContent = new Date(
+              data.update
+            ).toLocaleString();
+          })
+          .catch((error) => {
+            console.error("Fetch error:", error);
+          });
+      }
+
+      document
+        .getElementById("counter-button")
+        .addEventListener("click", getCounter);
+
       const tg = window.Telegram.WebApp;
 
       document.getElementById("sendData").onclick = function () {
